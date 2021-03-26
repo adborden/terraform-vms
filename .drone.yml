@@ -7,5 +7,7 @@ steps:
 - name: terraform
   image: hashicorp/terraform:0.14.9
   commands:
+  - mkdir -p ~/.terraform.d/plugins/registry.terraform.io/dmacvicar/libvirt/0.6.3/linux_amd64/
+  - cp .terraform/providers/registry.terraform.io/dmacvicar/libvirt/0.6.3/linux_amd64/terraform-provider-libvirt ~/.terraform.d/plugins/registry.terraform.io/dmacvicar/libvirt/0.6.3/linux_amd64/
   - terraform init
   - terraform plan
