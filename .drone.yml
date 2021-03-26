@@ -1,0 +1,10 @@
+---
+kind: pipeline
+type: docker
+name: default
+
+steps:
+- name: terraform
+  image: terraform:0.14.9
+  commands:
+  - plan
