@@ -1,0 +1,12 @@
+#cloud-config
+#
+# https://cloudinit.readthedocs.io/en/latest/topics/modules.html
+
+
+ssh_import_id:
+  - gh:adborden
+
+timezone: America/Los_Angeles
+
+users:
+  - default
