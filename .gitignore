@@ -1,4 +1,5 @@
 *.tfstate
 *.tfstate.backup
 .terraform
+.terraform.lock.hcl  # Temporarily leave this out since our libvirt provider is compiled from source
 .terraform.tfstate.lock.info
