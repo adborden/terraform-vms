@@ -1,3 +1,3 @@
-output "ip_address" {
-  value = libvirt_domain.ubuntu_bionic.network_interface.0.addresses
+output "ubuntu_bionic_ip_address" {
+  value = module.ubuntu_bionic.ip_address
 }

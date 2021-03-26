@@ -26,13 +26,6 @@ data "template_file" "user_data" {
 #  template = file("${path.module}/config/network_config.cfg")
 #}
 
-resource "libvirt_cloudinit_disk" "default" {
-  name      = "cloudinit-default.iso"
-  user_data = data.template_file.user_data.rendered
-  #network_config = data.template_file.network_config.rendered
-  pool = "default"
-}
-
 resource "libvirt_volume" "base_ubuntu_xenial" {
   name   = "ubuntu-base-xenial"
   pool   = "default"
@@ -54,46 +47,10 @@ resource "libvirt_volume" "base_ubuntu_focal" {
   format = "qcow2"
 }
 
-resource "libvirt_volume" "ubuntu_bionic" {
-  name           = "ubuntu-bionic"
-  base_volume_id = libvirt_volume.base_ubuntu_bionic.id
-  pool           = "default"
-  size           = 5368709120
-}
+module "ubuntu_bionic" {
+  source = "./modules/vm"
 
-resource "libvirt_domain" "ubuntu_bionic" {
-  name   = "ubuntu-terraform"
-  memory = "512"
-  vcpu   = 1
-
-  cloudinit = libvirt_cloudinit_disk.default.id
-
-  network_interface {
-    network_name = "default"
-  }
-
-  # IMPORTANT: this is a known bug on cloud images, since they expect a console
-  # we need to pass it
-  # https://bugs.launchpad.net/cloud-images/+bug/1573095
-  console {
-    type        = "pty"
-    target_port = "0"
-    target_type = "serial"
-  }
-
-  console {
-    type        = "pty"
-    target_type = "virtio"
-    target_port = "1"
-  }
-
-  disk {
-    volume_id = libvirt_volume.ubuntu_bionic.id
-  }
-
-  graphics {
-    type        = "spice"
-    listen_type = "address"
-    autoport    = true
-  }
+  name = "ubuntu-bionic"
+  base_volume_image_id = libvirt_volume.base_ubuntu_bionic.id
+  cloudinit_user_data = data.template_file.user_data.rendered
 }
