@@ -7,4 +7,5 @@ steps:
 - name: terraform
   image: hashicorp/terraform:0.14.9
   commands:
-  - plan
+  - terraform init
+  - terraform plan
