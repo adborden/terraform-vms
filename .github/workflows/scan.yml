@@ -18,7 +18,7 @@ jobs:
         # Snyk can be used to break the build when it detects security issues.
         # In this case we want to upload the issues to GitHub Code Scanning
         continue-on-error: true
-        uses: snyk/actions/iac@0.3
+        uses: snyk/actions/iac@0.3.0
         with:
           # action currently only supports a single file :(
           file: terraform.tf
