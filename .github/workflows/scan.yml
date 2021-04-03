@@ -18,7 +18,10 @@ jobs:
         # Snyk can be used to break the build when it detects security issues.
         # In this case we want to upload the issues to GitHub Code Scanning
         continue-on-error: true
-        uses: snyk/actions/iac@master
+        uses: snyk/actions/iac@0.3
+        with:
+          # action currently only supports a single file :(
+          file: terraform.tf
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       - name: upload
