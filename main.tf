@@ -63,13 +63,14 @@ resource "libvirt_volume" "ubuntu_bionic" {
 
 resource "libvirt_domain" "ubuntu_bionic" {
   name   = "ubuntu-terraform"
-  memory = "512"
-  vcpu   = 1
+  memory = "2048"
+  vcpu   = 2
 
   cloudinit = libvirt_cloudinit_disk.default.id
 
   network_interface {
     network_name = "default"
+    wait_for_lease = true
   }
 
   # IMPORTANT: this is a known bug on cloud images, since they expect a console
