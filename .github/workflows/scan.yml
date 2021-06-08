@@ -21,7 +21,7 @@ jobs:
         uses: snyk/actions/iac@0.3.0
         with:
           # action currently only supports a single file :(
-          file: terraform.tf
+          file: main.tf
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       - name: upload
